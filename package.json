@@ -1,0 +1,21 @@
+{
+  "name": "syncing-1-4",
+  "version": "0.0.0",
+  "description": "sync-1-4 hw",
+  "main": "./src/app.js",
+  "scripts": {
+    "start": "node ./src/app.js",
+    "pretest": "eslint ./src --fix",
+    "test": "echo \"Tests complete\""
+  },
+  "author": "Danielle Carmi",
+  "license": "ISC",
+  "dependencies": {
+    "socket.io": "^1.4.8"
+  },
+  "devDependencies": {
+    "eslint": "^3.8.0",
+    "eslint-config-airbnb": "^12.0.0",
+    "eslint-plugin-import": "^1.16.0"
+  }
+}
