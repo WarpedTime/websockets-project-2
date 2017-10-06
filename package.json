@@ -6,7 +6,10 @@
   "scripts": {
     "start": "node ./src/app.js",
     "pretest": "eslint ./src --fix",
-    "test": "echo \"Tests complete\""
+    "test": "echo \"Tests complete\"",
+    "nodemon": "nodemon --watch ./src ./src/app.js",
+    "watch": "babel --watch ./client --out-file ./hosted/bundle.js",
+    "build": "babel ./client --out-file ./hosted/bundle.js"
   },
   "author": "Danielle Carmi",
   "license": "ISC",
@@ -14,8 +17,11 @@
     "socket.io": "^1.4.8"
   },
   "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.6.0",
     "eslint": "^3.8.0",
     "eslint-config-airbnb": "^12.0.0",
-    "eslint-plugin-import": "^1.16.0"
+    "eslint-plugin-import": "^1.16.0",
+    "nodemon": "^1.12.1"
   }
 }
