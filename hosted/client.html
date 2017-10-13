@@ -26,19 +26,23 @@
       font-family:"Trebuchet MS", Helvetica, sans-serif;
 	color: #333333;	
     }
-    #stage {
+    #mainCanvas {
       width: 500px;
       height: 500px;
       position: relative;
     }
-    #canvas {
+    #backCanvas { 
       position: absolute;
       z-index: 0;
+    }
+    #canvas {
+      position: absolute;
+      z-index: 1;
       border: 2px solid black;
     }
     #topCanvas { 
       position: absolute;
-      z-index: 1;
+      z-index: 2;
     }
     #canvas-server { 
       border: 2px solid yellow;
@@ -47,11 +51,13 @@
 </head>
 <body>
   <div id="wrapper">
-    <h1>- Syncing II -</h1>
+    <h1>- 590 Prototype -</h1>
     <br>
     <div style="float: left">
       
-      <div id="controls">
+      <div id="UI">
+        <p>[click red button in top-right to show/enable chat/draw box]</p>
+        <p>[wasd/arrows to move the test image (most recent post)]</p>
         <b id="user">User</b>
         <label>Mode:
           <select id="drawMode">
@@ -64,27 +70,34 @@
       </div>
       
       <br style="clear: both">
-      <div  id="stage">
+      
+      <div  id="mainCanvas">
+        <canvas id="backCanvas" height="500" width="500" style="z-index: 0">Please use an HTML 5 browser</canvas>
         
-        <canvas id="canvas" height="500" width="500" style="z-index: 0">Please use an HTML 5 browser</canvas>
+        <canvas id="canvas" height="500" width="500" style="z-index: 1">Please use an HTML 5 browser</canvas>
     
-        <canvas id="topCanvas" height="500" width="500" style="z-index: 1">Please use an HTML 5 browser</canvas>
+        <canvas id="topCanvas" height="500" width="500" style="z-index: 2">Please use an HTML 5 browser</canvas>
+        
       </div>
     </div>
     
     <br>
     
-    <div style="float: right"> 
+    <div id="lastImage" style="float: right"> 
       <b id="last">last image:</b> <br>
-      <canvas id="canvas-server" height="250" width="250">Please use an HTML 5 browser</canvas>
+      <canvas style="display: none" id="canvas-server" height="250" width="250">Please use an HTML 5 browser</canvas>
     </div>
     
     <br style="clear: both">
     
-    <div>
-      <p>This is a possible prototype of the image-based chat system for the IGME 590 project. Laid out most of the base for image 'dialogue-boxes' used by player avatars and tested stamps. For now, it just randonly assigns and saves a random userID (1-1000) and assigns a randomized ink/overlay color for variety. In final, there will be player avatars moving in near-realtime and interacting with each other through images/icons (appearing overhead in 'speech-bubble').</p>
+    <div id="desc">
+      <p>This is a prototype of my IGME 590 project. The base for image based chat and 'dialogue-boxes' used by player avatars work. The main canvas area is where the players avatars will be moving around (for now, the last posted image can me moved with arrow/wasd), and in final there will be multiple avatars each with their last post displayed in a 'speech bubble'. There is a green/red button on top-right cornwer that will toggle chat/draw functionality [will be made more visually pleasing/themed later along with all UI]. *working on keeping the drawn images exclusively on the chat drawing area (rectangle in middle in chat mode) </p>
+        
+      <p>Working on separating/identifying users more efficiently and displaying and setting user avatars. User Ids are still asigned randomly (1-1000) and also assigns a randomized ink/overlay color for variety, which can be changed by user later, background image/texture will also be customizable. In final, there will be player avatars moving in near-realtime and interacting with each other through images/icons (appearing overhead in 'speech-bubble') similar to the miis and miiverse posts on the wii u home screen.</p>
     </div>
+    
     <img id="img" src="img.png" style="display: none">
+    <img id="walk" src="walk.png" style="display: none">
   </div>
   
 </body>

@@ -7,16 +7,25 @@ const PORT = process.env.PORT || process.env.NODE_PORT || 3000;
 const handler = (req, res) => {
   if (req.url === '/bundle.js') {
     fs.readFile(`${__dirname}/../hosted/bundle.js`, (err, data) => {
+      if (err) {
+        throw err;
+      }
       res.writeHead(200, { 'Content-Type': 'application/javascript' });
       res.end(data);
     });
   } else if (req.url === '/img.png') {
     fs.readFile(`${__dirname}/../hosted/img.png`, (err, data) => {
+      if (err) {
+        throw err;
+      }
       res.writeHead(200, { 'Content-Type': 'image/png' });
       res.end(data);
     });
   } else {
     fs.readFile(`${__dirname}/../hosted/client.html`, (err, data) => {
+      if (err) {
+        throw err;
+      }
       res.writeHead(200, { 'Content-Type': 'text/html' });
       res.end(data);
     });
@@ -24,7 +33,6 @@ const handler = (req, res) => {
 };
 
 const app = http.createServer(handler);
-
 const io = socketio(app);
 
 app.listen(PORT);
