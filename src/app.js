@@ -22,9 +22,9 @@ app.get('/', (req, res) => {
 
 const server = http.createServer(app);
 
-const io = socketio(server);
+//const io = socketio(server);
 
-sockets.setupSockets(io);
+sockets.setupSockets();
 
 // start listening for traffic
 server.listen(PORT, (err) => {
