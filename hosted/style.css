@@ -1,0 +1,172 @@
+body {
+  font-family: 'Source Code Pro', 'Courier', monospace;
+  margin: 0;
+}
+
+canvas {
+  //background: #000;
+}
+
+#canvasArea {
+  width: 712px;
+  height: 514px;
+  position: relative;
+  margin: 3px;
+  margin-left: 0;
+}
+#back { 
+  position: absolute;
+  z-index: 0;
+}
+#main {
+  position: absolute;
+  z-index: 1;
+}
+#overlay { 
+  position: absolute;
+  z-index: 2;
+}
+
+a, a:hover, a:visited {
+  color: #000;
+  text-decoration: none;
+}
+
+a {
+  border-bottom: 2px solid #31ffd5;
+}
+
+a:hover {
+    background:#31ffd5;
+}
+
+.main-wrapper {
+  width: 712px;
+  height: 512px;
+  padding-left: 1em;
+  padding-right: 1em;
+  margin: 0 auto;
+}
+
+.main-header, .main-footer {
+  text-align: center;
+}
+
+.subtitle {
+  font-size: 1.5em;
+}
+
+.main-header {
+  margin-top: 0;
+  margin-bottom: 2em;
+}
+
+.main-header h1 {
+  margin: 0;
+  background: #31ffd5;
+  padding: 0.5em 1em;
+}
+
+.main-header p {
+  margin: 0;
+  background: #ffffff;
+  padding: 0.5em 1em;
+}
+
+.main-header a {
+  color: #000;
+  text-decoration: none;
+}
+
+.main-footer {
+  margin-top: 2em;
+}
+
+li, p {
+  line-height: 1.25em;
+}
+
+li {
+  margin: 0.5em 0;
+}
+
+.statusWindow {
+  //display: inline-block;
+  border-radius: 3px;
+  border: 2px solid #2e2e2e;
+  margin: 0 auto;
+  margin-top: 3px;
+  padding: 0;
+  font-family:"Trebuchet MS", Helvetica, sans-serif;
+}
+.statusWindow .header {
+  display: block;
+  background-color: #9268ef;
+  padding: 0.5em;
+  margin-bottom: 0px;
+  color: #efefef;
+}
+.statusWindow .status {
+  padding: 0.1em;
+  padding-top: 0.1em;
+  padding-bottom: 0.1em;
+}
+
+.statusWindow .status p {
+  padding: 0.2em;
+  display: block;
+  margin: 3px;
+}
+
+.opt {
+  transition: .3s background-color;
+  border-radius: 2px;
+  display: inline-block;
+}
+.opt:hover{
+  background-color: #cbcbcb;
+}
+
+.popup {
+  position: absolute;
+  display: inline-block;
+  vertical-align:  middle;
+  background: white;
+  color: aqua;
+  z-index: 3;
+  margin: 0;
+  top: 50%;   
+  left: 50%;
+  transform: translate(-50%, -50%) }
+}
+
+.popupContainer {
+  position: relative;
+  margin: 0 auto;
+  width: 100%;
+  height: 100%;
+  z-index: 3;
+  background: gray;
+  text-align: center;
+  vertical-align:  middle;
+}
+
+audio {
+  display: none;
+}
+
+.hidden {
+  display: none;
+}
+.show {
+  display: block;
+}
+
+.noSelect {
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none; /* Safari */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* Internet Explorer/Edge */
+  user-select: none; /* Non-prefixed version, currently
+  supported by Chrome and Opera */
+}

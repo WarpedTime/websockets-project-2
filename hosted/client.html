@@ -1,221 +1,56 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html><!-- http://mozdevs.github.io/gamedev-js-tiles/index.html -->
+<html>
 <head>
+  <title>BoxLand</title>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="assets/style.css" type="text/css">
+  <script src="assets/bundle.js"></script>
   <script src="/socket.io/socket.io.js"></script>
-  <script src="bundle.js"></script>
-  <style>
-    body {
-      width: 100%;
-      height:100%;
-      padding: 0;
-      margin:0;
-      background-color: #e6d3ff;
-      font-family:"Trebuchet MS", Helvetica, sans-serif;
-    }
-    h1 {
-	 font-size: 2em;
-	 font-weight: bold;
-	 color:#cea9ff;
-	 text-align: center;
-    }
-    h2 {
-	 font-size: 1.5em;
-	 font-weight: bold;
-	 color:#9268ef;
-	 text-align: center;
-    }
-    .doc {
-      width: 85%;
-    }
-    
-    #wrapper{
-      width: 85%;
-      margin: 0 auto;
-      background-color: #ffffff;
-      padding: 20px;
-      border-radius: 7px;
-      color: #333333;	
-      border-bottom-left-radius: 0;
-      border-bottom-right-radius: 0;
-    }
-    
-    #canvasArea {
-      width: 500px;
-      height: 500px;
-      position: relative;
-      border-radius: 2px;
-      border: 2px solid #2e2e2e;
-      margin: 3px;
-      margin-left: 0;
-    }
-    #mainCanvas { 
-      position: absolute;
-      z-index: 0;
-    }
-    #drawCanvas {
-      position: absolute;
-      z-index: 1;
-    }
-    #overlayCanvas { 
-      position: absolute;
-      z-index: 2;
-    }
-    
-    #footer {
-      width: 85%;
-      display: block;
-      margin: 0 auto;
-      padding: 0.2em;
-      padding-left: 20px;
-      padding-right: 20px;
-      background-color: #9268ef;
-    }
-    #footer p {
-      font-size: 1em;
-      font-weight: bold;
-      color: #efefef;
-      text-align: center;
-      margin-bottom: 0px;
-      margin-top: 0px;
-    }
-    
-    .statusWindow {
-      display: inline-block;
-      border-radius: 3px;
-      border: 2px solid #2e2e2e;
-      margin: 0 auto;
-      margin-top: 3px;
-      padding: 0;
-    }
-    .statusWindow .header {
-      display: block;
-      background-color: #9268ef;
-      padding: 0.5em;
-      margin-bottom: 0px;
-      color: #efefef;
-    }
-    .statusWindow .status {
-      padding: 0.1em;
-      padding-top: 0.1em;
-      padding-bottom: 0.1em;
-    }
-    
-    .statusWindow .status p {
-      padding: 0.2em;
-      display: block;
-      margin: 3px;
-    }
-    
-    .opt {
-      transition: .3s background-color;
-      border-radius: 2px;
-      display: inline-block;
-    }
-    .opt:hover{
-      background-color: #cbcbcb;
-    }
-    
-    .hidden {
-      display: none;
-    }
-    .show {
-      display: block;
-    }
-    .noSelect {
-      -webkit-touch-callout: none; /* iOS Safari */
-      -webkit-user-select: none; /* Safari */
-      -moz-user-select: none; /* Firefox */
-      -ms-user-select: none; /* Internet Explorer/Edge */
-      user-select: none; /* Non-prefixed version, currently
-      supported by Chrome and Opera */
-    }
-    
-  </style>
+  <link rel="shortcut icon" href="/assets/img/favicon.png"/>
 </head>
 <body>
-  <div id="wrapper">
-    <h1>590 Websockets Project:</h1>
-    <h2> image based chatRoom </h2>
-    <br>
-    <div>
+
+<header class="main-header">
+  <h1><a href="">BoxLand</a></h1>
+  <p>590 Project 2</p>
+</header>
+
+<div class="main-wrapper">
+  
+  <div id="canvasArea" class="noSelect">
+    <canvas id="back" width="712" height="512"></canvas>
+    <canvas id="main" width="712" height="512"></canvas>
+    <canvas id="overlay" width="712" height="512"></canvas>
+    
+    <div class="popupContainer">
       
-      <div id="roomSelect" class="statusWindow hidden" >
+      <div id="roomSelect" class="popup statusWindow hidden" >
         <b class="header">Select Room: </b>
         <div id="roomList" class="status"> </div>
         <div id="addRoom" class="status"><p class="opt">[+] Add Room</p></div>
       </div>
       
-      <div id="login" class="">
-        <input type="text" id="nameBox" placeholder="username"/>
-        <input type="button" id="login" value="Login" />
-        <br/>
-      </div>
-      
-      <br style="clear: both"/>
-            
-      <br style="clear: both"/>
-      
-      <div  id="canvasArea" class="statusWindow noSelect" style="float: left">
-        
-        <div id="UI" class="header" style="border-bottom: 1px solid black">
-          <b id="user">[-disconnected-]</b>
-          <label>Mode:
-            <select id="drawMode">
-              <option value="pen">Pen</option>  
-              <option value="stamp">Stamp</option>  
-            </select>
-          </label>
-          <input type="button" id="logout" value="Logout" style="float: right; display: none" />
+      <div id="login" class="popup statusWindow hidden" >
+        <b class="header">Enter your display-name </b>
+        <div class="status" style="margin: 0.5em">
+          <input type="text" id="nameBox" placeholder="username"/>
+          <input type="button" id="login" value="Login" />
         </div>
-
-        <canvas id="mainCanvas" height="500" width="500" style="z-index: 0">Please use an HTML 5 browser</canvas>
-        
-        <canvas id="drawCanvas" height="500" width="500" style="z-index: 1">Please use an HTML 5 browser</canvas>
-    
-        <canvas id="overlayCanvas" height="500" width="500" style="z-index: 2">Please use an HTML 5 browser</canvas>
-        
       </div>
-    </div>
-
-    <div id="usersActive" class="statusWindow hidden" style="float: left;"> 
-      <b id="room" class="header">- Room -</b>
-      <div id="usersList" class="status"> </div>
-    </div>
-        
-    <br style="clear: both"> <br/>
-    
-    <div id="desc" class="doc">
-      <h2>Documentation</h2>
-      <b>Overview</b>
-      <p>This is my IGME 590 websockets project. This app allows multiple users to enter a room and interact with each other through images using websockets to sync data in near-realtime. The main canvas area is where the players avatars will move around, and their last post displayed in a 'speech bubble' above the character (with their name above). The chat button in the upper right corner toggles the chat drawing box, and then clicking post will upload your message or clear will reset the message. Players can create messages by drawing with a pen tool or using stamps via the 'mode' dropdown in the upper left [a color filter is randomized per login to provide some variety/individuality in visuals]. Once a player posts a message, it apears over their head for all other users in the room to see. Drawn images will be masked to the chat drawing box in the center. *close tab or refresh to logout*</p>
       
-      <b>Websocket Functionality</b>
-      <p>Websockets are used to sync player positions and messages in near-realtime as thery are updated and as players enter and exit rooms. As the user is searching for a room to join, the list is also being updated as others enter and exit them and once in the room, the user list is updated with all the active users in the room. The user has to first chose a username that is not being currently used (a username becomes availible again once current name holder disconnects)</p>
-      
-      <b>Progress</b>
-      <p>Overall, I pretty much accomplished all of my original base goals, as well as some of the stretch goals and the framwork for some others. My main objectives was to have a system where players can control an avatar and communicate via images/drawings in a shared space. In addition, I have a basis for implementing both stamps and custom 'paper' backgrounds (though backgrounds are not implemented in this version) as well as some streamlining for 'logins'. The main thing that didnt really work out was the logout button [hidden in this version]; currently only closing the tab peoperly removes the user, while using the logout button causes problems and does not allow for re-login. Also some of the bounds for the main screen are a bit off so the players can walk 'off' canvas a little. </p>
-      
-      <b>Future Development</b>
-      <p>If I were to continue this project threre are many things I would change and expand on. The main elements I would add are either an expanded map (that follows the user like a top-town rpg style view), convert it to a 2d sidescroller style [visaully similar to Maplestory], or include minigames to play with others in the room [either individual or group challenge/co-op but probably in diff 'scene'] and expand on customization and persisting usernames [rather than overwriting the name upon logout] as well as general streamlining and polish.</p>
-      
-      <b>Above and Beyond [assignment]</b>
-      <p>For this project, I tried to integrate a unified theme for the page/app, and provide satisfying feedback for user actions. As for functionality, I combined both synchronized players in rooms and drawn [rather than text based] communication in a single app and screen. I also worked to create a basic, but fluid login/udername system; a single name cant be simultaneously by multiple users, rooms rooms can be created as needed, and data such as occupied room names and room user lists are updated dynamically.</p>
-      
-      <b>Sources</b>
-      <p>player avatar spritesheet: <a href="https://rpgmaker.net/games/8053/?p=2">https://rpgmaker.net/games/8053/?p=2 </a></p>
-      <p>app inspiration [Splatoon]: <a href="https://media0dk-a.akamaihd.net/38/40/e029607d3424bfe0af81a4162c61c1fc.jpg">screenshot</a>, <a href="http://splatoon.nintendo.com/">Splatoon</a> belongs to <a href="https://www.nintendo.com/">Nintendo </a></p>
-      <p>mudkip [stamp]: unidentified author online  </p>
-      <p>Mudkip [Pokemon]: <a href="https://www.pokemon.com/us/">Pokemon</a> and Mudkip belongs to <a href="https://www.nintendo.com/">Nintendo </a></p>
     </div>
-    
-    
-    <img id="img" src="img.png" style="display: none">
-    <img id="walk" src="walk.png" style="display: none">
-    </div>
-    <div id="footer">
-      <p class="header">- Copyright 2017 Danielle - </p>
-      <p>All rights reserved</p>
-    </div>
+  </div>
+  
+</div>
+  
+<div id="audio">
+  <audio id="bgAudio" controls loop></audio>
+  <audio id="effectAudio" controls></audio>
+</div>
+  
+<footer class="main-footer">
+  <p>- Copyright 2017 Danielle - <br /> All rights reserved</p>
+</footer>
   
 </body>
 </html>
