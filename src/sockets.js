@@ -1,4 +1,4 @@
-const setupSockets = (io) => {
+const setupSockets = () => {
   console.log('setup sockets');
 }
 
