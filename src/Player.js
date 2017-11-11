@@ -11,13 +11,13 @@ class Player {
     this.height = 5;
     this.width = 5;
     this.alpha = 0;
-    this.fillStyle: 'red';
-    this.speed: 3;
-    this.velX: 0;
-    this.velY: 0;
-    this.jumping: false;
-    this.grounded: false;
-    this.image: undefined;
+    this.fillStyle = 'red';
+    this.speed = 3;
+    this.velX = 0;
+    this.velY = 0;
+    this.jumping = false;
+    this.grounded = false;
+    this.image = undefined;
   }
 }
 
